@@ -23,6 +23,6 @@ if args.org:
     
     
     Log line I want to add, need to work on filtering: 
-    LIST="4046 3628 4039 1876 3778 599 3290 3717 3006"
-    export IFS=" "
-    for ID in $LIST; do op core list-email-alerts 302 | jq '.[] | [.id, .isEnabled |tostring] | @csv' | grep '10478'; done
+    LIST="4046;3628;4039;1876;3778;599;3290;3717;3006"
+    export IFS=";"
+    for ID in $LIST; do op core list-email-alerts $ID | egrep -A 2 '"id": 10478' | egrep -v 'emailAddresses'; done
